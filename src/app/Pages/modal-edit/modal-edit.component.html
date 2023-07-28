@@ -1,0 +1,33 @@
+<div class="content">
+  <div class="my-1">
+    <label for="exampleFormControlInput1" class="form-label">Name</label>
+    <input type="Text" class="form-control" id="NameEdit" placeholder="Example">
+  </div>
+  <div class="my-3">
+    <label for="exampleFormControlInput1" class="form-label">Number</label>
+    <input type="number" class="form-control" id="NumEdit" placeholder="Example">
+  </div>
+  <div class="my-3">
+    <label for="exampleFormControlInput1" class="form-label">contact type</label>
+    <select class="form-select form-select-sm" aria-label="Small select example">
+      <option selected>Filter Contact Type</option>
+      <option *ngFor="let contact of contacType" [value]="contact.id">{{ contact.name }}</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="exampleFormControlTextarea1" class="form-label">Comments</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+  </div>
+  <div class="my-3">
+    <label for="exampleFormControlInput1" class="form-label">Gender</label>
+    <select class="form-select form-select-sm" aria-label="Small select example">
+      <option selected>Gender</option>
+      <option *ngFor="let gender of selectGender" [value]="gender">{{ gender }}</option>
+    </select>
+  </div>
+  <div class="my-3">
+    <label for="exampleFormControlInput1" class="form-label">Email</label>
+    <input type="email" class="form-control" id="EmailEdit" placeholder="Example">
+  </div>
+  
+</div>
