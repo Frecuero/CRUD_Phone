@@ -23,12 +23,10 @@ export class PhoneBookService {
   }
 
   update(phoneBook: PhoneBook): Observable<PhoneBook> {
-    return this.http.put<PhoneBook>(this.apiURL, phoneBook);
+    return this.http.put<PhoneBook>(`${this.apiURL}/${phoneBook.id}`, phoneBook);
   }
 
   delete(phoneBook: PhoneBook): Observable<void> {
     return this.http.delete<void>(`${this.apiURL}/${phoneBook.id}`);
   }
-
-  // 1:34:07
 }

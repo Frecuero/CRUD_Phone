@@ -1,12 +1,13 @@
 import { TypeContact } from "./type-contact";
 
 export interface PhoneBook {
-    id: number,
+    id?: number,
     name: string,
     phoneNumber: string,
-    contactType: TypeContact,
+    contactType?: TypeContact,
     comments: string,
     gender: string,
     email: string,
-    status: boolean,
+    contactTypeId: number,
+    status?: boolean,
 }

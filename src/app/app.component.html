@@ -4,16 +4,25 @@
       <h1 class="display-1">Phone Book</h1>
     </div>
     <div class="col-12">
-      <button type="button" class="btn btn-success">
+      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#Modal" 
+      (click)="openModal()">
         <i class="bi bi-plus-lg"></i> Add Contact
       </button>
     </div>
     <div class="col-12 py-3 ">
-      <div class="col-12 col-md-6 col-lg-2">
-        <select class="form-select form-select-sm" aria-label="Small select example" (change)="onContactTypeSelect($event)">
-          <option selected>Filter Contact Type</option>
-          <option *ngFor="let contact of contacType" [value]="contact.id">{{ contact.name }}</option>
-        </select>
+      <div class="row">
+        <div class="col-10 col-md-6 col-lg-2">
+          <select class="form-select form-select-sm" aria-label="Small select example" (change)="onContactTypeSelect($event)">
+            <option selected>Filter Contact Type</option>
+            <option *ngFor="let contact of contacType" [value]="contact.id">{{ contact.name }}</option>
+          </select>
+        </div>
+        <div class="col-1">
+          <button type="button" class="btn btn-primary" (click)="reloadTable()"
+          style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+            <i class="bi bi-arrow-clockwise"></i>
+          </button>
+        </div>
       </div>
     </div>
   <div class="col-12">
@@ -38,11 +47,15 @@
           <td>{{ entry.comments }}</td>
           <td>{{ entry.gender }}</td>
           <td>{{ entry.email }}</td>
-          <td><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal"
-            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+          <td><button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#Modal" 
+            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+            (click)="openModal(entry)"
+            >
             <i class="bi bi-pencil-square"></i> Edit
           </button></td>
-          <td><button type="button" class="btn btn-danger"  style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+          <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#Modal" 
+            style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;"
+            (click)="deleteModal(entry)">
             <i class="bi bi-trash-fill"></i> Delete
           </button></td>
         </tr>
@@ -52,19 +65,23 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">{{titleModal}}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <app-modal-edit></app-modal-edit>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+
+        <ng-container *ngIf="showContent">
+          <app-modal-edit></app-modal-edit>
+        </ng-container>
+        
+        <ng-container *ngIf="!showContent">
+          <app-modal-delete></app-modal-delete>
+        </ng-container>
+
       </div>
     </div>
   </div>

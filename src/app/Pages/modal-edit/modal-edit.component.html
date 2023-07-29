@@ -1,33 +1,52 @@
-<div class="content">
-  <div class="my-1">
-    <label for="exampleFormControlInput1" class="form-label">Name</label>
-    <input type="Text" class="form-control" id="NameEdit" placeholder="Example">
+
+  <div class="content">
+    <div class="my-1">
+      <label for="exampleFormControlInput1" class="form-label">Name</label>
+      <input type="Text" class="form-control" id="NameEdit" placeholder="Example" [(ngModel)]="name" required>
+    </div>
+    <div class="my-3">
+      <label for="exampleFormControlInput1" class="form-label">Number</label>
+      <input type="number" class="form-control" id="NumEdit" placeholder="Example" [(ngModel)]="phoneNumber">
+    </div>
+    <div class="my-3">
+      <label for="exampleFormControlInput1" class="form-label">contact type</label>
+      <select class="form-select form-select-sm" aria-label="Small select example" [(ngModel)]="contactTypeId" required>
+        <option *ngFor="let contact of contacType" [value]="contact.id">{{ contact.name }}</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="exampleFormControlTextarea1" class="form-label">Comments</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" [(ngModel)]="comments"></textarea>
+    </div>
+    <div class="my-3">
+      <label for="exampleFormControlInput1" class="form-label">Gender</label>
+      <select class="form-select form-select-sm" aria-label="Small select example" [(ngModel)]="gender" required>
+        <option *ngFor="let gender of selectGender" [value]="gender">{{ gender }}</option>
+      </select>
+    </div>
+    <div class="my-3">
+      <label for="exampleFormControlInput1" class="form-label">Email</label>
+      <input type="email" class="form-control" id="EmailEdit" placeholder="Example" [(ngModel)]="email">
+    </div>  
+    
+    <ng-container *ngIf="error !== ''">
+      <div class="alert alert-danger" role="alert">
+        {{error}}
+      </div>
+    </ng-container>
   </div>
-  <div class="my-3">
-    <label for="exampleFormControlInput1" class="form-label">Number</label>
-    <input type="number" class="form-control" id="NumEdit" placeholder="Example">
+
+
+<ng-container *ngIf="isEdit">
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" (click)="updateData()">Save changes</button>
   </div>
-  <div class="my-3">
-    <label for="exampleFormControlInput1" class="form-label">contact type</label>
-    <select class="form-select form-select-sm" aria-label="Small select example">
-      <option selected>Filter Contact Type</option>
-      <option *ngFor="let contact of contacType" [value]="contact.id">{{ contact.name }}</option>
-    </select>
+</ng-container>
+
+<ng-container *ngIf="!isEdit">
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-primary" (click)="sendData()">Add</button>
   </div>
-  <div class="mb-3">
-    <label for="exampleFormControlTextarea1" class="form-label">Comments</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-  </div>
-  <div class="my-3">
-    <label for="exampleFormControlInput1" class="form-label">Gender</label>
-    <select class="form-select form-select-sm" aria-label="Small select example">
-      <option selected>Gender</option>
-      <option *ngFor="let gender of selectGender" [value]="gender">{{ gender }}</option>
-    </select>
-  </div>
-  <div class="my-3">
-    <label for="exampleFormControlInput1" class="form-label">Email</label>
-    <input type="email" class="form-control" id="EmailEdit" placeholder="Example">
-  </div>
-  
-</div>
+</ng-container>
