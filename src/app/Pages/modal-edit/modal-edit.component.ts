@@ -19,6 +19,7 @@ export class ModalEditComponent implements OnInit, OnDestroy {
   private suscriptionsList: Subscription[] = [];
   private errorMessage: Subscription;
   public error = '';
+  public success = '';
 
   public id: number;
   public name: string;
@@ -91,6 +92,7 @@ export class ModalEditComponent implements OnInit, OnDestroy {
 
   sendData(){
     this.error = '';
+    this.success = '';
     if (!this.validateForm()) {
       const phoneBookData: PhoneBook = {
         name: this.name,
@@ -104,12 +106,16 @@ export class ModalEditComponent implements OnInit, OnDestroy {
       this.phoneBookService.add(phoneBookData).subscribe({
         next: (dataContacType) => {
         this.clearForm();
+        this.success = 'User added successfully';
       },
       error: (error) => {
         console.log(error);
         }}
       );
       this.error = '';
+      setTimeout(() => {
+        this.success = '';
+      }, 2000);
     }
   }
 
@@ -144,6 +150,7 @@ export class ModalEditComponent implements OnInit, OnDestroy {
 
   updateData(){
     this.error = '';
+    this.success = '';
     if (!this.validateForm()){
       const updatedUser: PhoneBook = {
         id: this.id,
@@ -158,12 +165,16 @@ export class ModalEditComponent implements OnInit, OnDestroy {
       this.phoneBookService.update(updatedUser).subscribe({
         next: (dataContacType) => {
         this.clearForm();
+        this.success = 'User updated successfully';
       },
       error: (error) => {
         console.log(error);
         }}
       );
       this.error = '';
+      setTimeout(() => {
+        this.success = '';
+      }, 2000);
     }
   }
 

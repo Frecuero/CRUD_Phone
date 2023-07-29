@@ -21,6 +21,7 @@ export class ModalDeleteComponent implements OnInit, OnDestroy {
   public email: string;
   public status: boolean;
   public isEdit: boolean = false;
+  public message: string = '';
   
   constructor(
     private modalService: ModalServiceService,
@@ -57,6 +58,7 @@ export class ModalDeleteComponent implements OnInit, OnDestroy {
   }
 
   deleteUser(): void {
+    this.message='';
     if (this.id){
       const updatedUser: PhoneBook = {
         id: this.id,
@@ -69,12 +71,16 @@ export class ModalDeleteComponent implements OnInit, OnDestroy {
         status: false,
       };
       this.phoneBookService.delete(updatedUser).subscribe({
-        next: (dataContacType) => {  
+        next: (dataContacType) => {
+         this.message = 'Contact deleted successfully';          
       },
       error: (error) => {
         console.log(error);
         }}
       );
+      setTimeout(() => {
+        this.message='';
+      }, 5000);
     }
   }
   ngOnDestroy(): void {
